@@ -1,51 +1,73 @@
 package com.adventofcode2022.day2
 
 import com.adventofcode2022.day2.RockPaperScissors.*
-import com.adventofcode2022.day2.RoundResult.*
+import com.adventofcode2022.day2.RoundOutcome.*
 import java.io.File
 
 fun solutionDay2 () {
     var totalScore = 0
     val rounds: MutableList<Round> = mutableListOf()
     File("src/main/resources/day_2.txt").forEachLine { line: String ->
-        rounds.add(Round(from(line[0]), from(line[2])))
+        rounds.add(Round(shapeFrom(line[0]), desiredOutcomeFrom(line[2])))
     }
     rounds.forEach { round: Round ->
-        val result: RoundResult = when(round.strategyShape) {
-            ROCK -> resultForRock(round.opponentShape)
-            PAPER -> resultForPaper(round.opponentShape)
-            SCISSORS -> resultForScissors(round.opponentShape)
-        }
-        totalScore += result.points + round.strategyShape.points
+        totalScore += myShapeFrom(round.desiredOutcome, round.opponentShape).points + round.desiredOutcome.points
     }
     println(totalScore)
 }
 
-fun from(char: Char): RockPaperScissors =
+fun shapeFrom(char: Char): RockPaperScissors =
     when(char) {
-        'A', 'X' -> ROCK
-        'B', 'Y' -> PAPER
-        'C', 'Z' -> SCISSORS
+        'A' -> ROCK
+        'B' -> PAPER
+        'C' -> SCISSORS
         else -> ROCK
     }
 
-fun resultForRock(opponentShape: RockPaperScissors): RoundResult =
+fun desiredOutcomeFrom(char: Char): RoundOutcome =
+    when(char) {
+        'X' -> LOSE
+        'Y' -> DRAW
+        'Z' -> WIN
+        else -> LOSE
+    }
+
+fun resultForRock(opponentShape: RockPaperScissors): RoundOutcome =
     when(opponentShape) {
         ROCK -> DRAW
         PAPER -> LOSE
         SCISSORS -> WIN
     }
 
-fun resultForPaper(opponentShape: RockPaperScissors): RoundResult =
+fun resultForPaper(opponentShape: RockPaperScissors): RoundOutcome =
     when(opponentShape) {
         ROCK -> WIN
         PAPER -> DRAW
         SCISSORS -> LOSE
     }
 
-fun resultForScissors(opponentShape: RockPaperScissors): RoundResult =
+fun resultForScissors(opponentShape: RockPaperScissors): RoundOutcome =
     when(opponentShape) {
         ROCK -> LOSE
         PAPER -> WIN
         SCISSORS -> DRAW
+    }
+
+fun myShapeFrom(desiredOutcome: RoundOutcome, opponentShape: RockPaperScissors): RockPaperScissors =
+    when (desiredOutcome) {
+        LOSE -> when(opponentShape) {
+            ROCK -> SCISSORS
+            PAPER -> ROCK
+            SCISSORS -> PAPER
+        }
+        DRAW -> when(opponentShape) {
+            ROCK -> ROCK
+            PAPER -> PAPER
+            SCISSORS -> SCISSORS
+        }
+        WIN -> when(opponentShape) {
+            ROCK -> PAPER
+            PAPER -> SCISSORS
+            SCISSORS -> ROCK
+        }
     }
