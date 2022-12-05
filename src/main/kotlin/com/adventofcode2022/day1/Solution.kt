@@ -1,11 +1,12 @@
-package com.adventofcode2022
+package com.adventofcode2022.day1
 
+import com.adventofcode2022.util.RESOURCES_BASE_PATH
 import java.io.File
 
 fun solution() {
     val list: MutableList<Int> = mutableListOf()
     var sum = 0
-    File("src/main/resources/day_1.txt").forEachLine { line: String ->
+    File("$RESOURCES_BASE_PATH/day_1.txt").forEachLine { line: String ->
         if (line.isBlank()) {
             list.add(sum)
             sum = 0

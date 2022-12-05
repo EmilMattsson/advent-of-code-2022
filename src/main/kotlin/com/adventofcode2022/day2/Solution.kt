@@ -2,12 +2,13 @@ package com.adventofcode2022.day2
 
 import com.adventofcode2022.day2.RockPaperScissors.*
 import com.adventofcode2022.day2.RoundOutcome.*
+import com.adventofcode2022.util.RESOURCES_BASE_PATH
 import java.io.File
 
-fun solutionDay2 () {
+fun solution () {
     var totalScore = 0
     val rounds: MutableList<Round> = mutableListOf()
-    File("src/main/resources/day_2.txt").forEachLine { line: String ->
+    File("$RESOURCES_BASE_PATH/day_2.txt").forEachLine { line: String ->
         rounds.add(Round(shapeFrom(line[0]), desiredOutcomeFrom(line[2])))
     }
     rounds.forEach { round: Round ->
