@@ -3,13 +3,20 @@ package com.adventofcode2022.day3
 import com.adventofcode2022.util.RESOURCES_BASE_PATH
 import java.io.File
 
-val bigAlphabetPointMap = getCharPoints('A', 'Z', 27)
-val alphabetPointMap = getCharPoints('a', 'z', 1)
+val alphabetPointMap = getCharPointMap()
 
-fun solution () {
-    alphabetPointMap.putAll(bigAlphabetPointMap)
+fun solutionPart1 () {
+    val sum = getLinesFromInputFile()
+        .map { line ->
+            getCharPoint(line)
+        }
+        .sumOf { i -> i ?: 0 }
 
-    val sum = File("${RESOURCES_BASE_PATH}/day_3.txt").useLines { it.toList() }
+    println(sum)
+}
+
+fun solutionPart2 () {
+    val sum = getLinesFromInputFile()
         .chunked(3)
         .map { lines ->
             getCharPointFrom(lines)
@@ -18,6 +25,8 @@ fun solution () {
 
     println(sum)
 }
+
+private fun getLinesFromInputFile() = File("${RESOURCES_BASE_PATH}/day_3.txt").useLines { it.toList() }
 
 private fun getCharPointFrom(lines: List<String>): Int? {
     val chars1 = lines[0].toCharArray().distinct()
@@ -37,6 +46,10 @@ private fun getCharPoint(line: String): Int? {
 
 private fun getCommonCharFromCompartments(r: Rucksack) =
     r.secondCompartment.toCharArray().distinct().filter { char -> r.firstCompartment.toCharArray().contains(char) }
+
+fun getCharPointMap(): Map<Char, Int> {
+    return getCharPoints('A', 'Z', 27) + getCharPoints('a', 'z', 1)
+}
 
 fun getCharPoints(startChar: Char, endChar: Char, startValue: Int): MutableMap<Char, Int> {
     val charPointsMap: MutableMap<Char, Int> = mutableMapOf()

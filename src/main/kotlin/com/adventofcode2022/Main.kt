@@ -1,8 +1,8 @@
 package com.adventofcode2022
 
-import com.adventofcode2022.day3.solution
+import com.adventofcode2022.day3.solutionPart2
 
 fun main() {
 
-    solution()
+    solutionPart2()
 }
