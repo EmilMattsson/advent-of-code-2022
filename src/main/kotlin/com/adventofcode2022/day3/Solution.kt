@@ -7,9 +7,7 @@ val alphabetPointMap = getCharPointMap()
 
 fun solutionPart1 () {
     val sum = getLinesFromInputFile()
-        .map { line ->
-            getCharPoint(line)
-        }
+        .map { line -> getCharPoint(line) }
         .sumOf { i -> i ?: 0 }
 
     println(sum)
@@ -18,9 +16,7 @@ fun solutionPart1 () {
 fun solutionPart2 () {
     val sum = getLinesFromInputFile()
         .chunked(3)
-        .map { lines ->
-            getCharPointFrom(lines)
-        }
+        .map { lines -> getCharPointFrom(lines) }
         .sumOf { i -> i ?: 0 }
 
     println(sum)
