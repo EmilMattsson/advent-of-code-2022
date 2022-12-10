@@ -29,13 +29,40 @@ private fun rearrangeCrates(
 
         println("$amountOfCrates $moveFrom $moveTo")
 
-        for (j in 1..amountOfCrates) {
-            val crateToMove = crateList[moveFrom - 1].pop()
+        solvePart1(amountOfCrates, crateList, moveFrom, moveTo)
+    }
+}
 
-            println("moving crate $crateToMove from pile $moveFrom to $moveTo")
+private fun solvePart1(
+    amountOfCrates: Int,
+    crateList: List<LinkedList<Char>>,
+    moveFrom: Int,
+    moveTo: Int
+) {
+    for (j in 1..amountOfCrates) {
+        val crateToMove = crateList[moveFrom - 1].pop()
 
-            crateList[moveTo - 1].push(crateToMove)
-        }
+        println("moving crate $crateToMove from pile $moveFrom to $moveTo")
+
+        crateList[moveTo - 1].push(crateToMove)
+    }
+}
+
+private fun solvePart2(
+    amountOfCrates: Int,
+    crateList: List<LinkedList<Char>>,
+    moveFrom: Int,
+    moveTo: Int
+) {
+    val cratesToMove = LinkedList<Char>()
+    for (j in 1..amountOfCrates) {
+        cratesToMove.push(crateList[moveFrom - 1].pop())
+    }
+
+    println("moving crates $cratesToMove from pile $moveFrom to $moveTo")
+
+    for (k in 1..cratesToMove.size) {
+        crateList[moveTo - 1].push(cratesToMove.pop())
     }
 }
 
