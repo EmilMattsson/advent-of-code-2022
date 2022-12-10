@@ -4,7 +4,7 @@ import com.adventofcode2022.util.RESOURCES_BASE_PATH
 import java.io.File
 
 fun solutionDay4 () {
-    val result = File("${RESOURCES_BASE_PATH}/day4.txt").readLines()
+    val result = File("${RESOURCES_BASE_PATH}/day_4.txt").readLines()
         .map { line -> eitherRangeIsContainedInTheOther(line) }
         .filter { b -> b }
         .size
