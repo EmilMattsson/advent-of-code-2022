@@ -9,7 +9,6 @@ fun solution () {
     val crateList: List<LinkedList<Char>> = createDataStructure()
 
     populateCrateList(lines, crateList)
-    println(crateList)
 
     rearrangeCrates(lines, crateList)
     for (i in 0..crateList.lastIndex) {
@@ -27,9 +26,7 @@ private fun rearrangeCrates(
         val moveFrom = lineParts[3].toInt()
         val moveTo = lineParts[5].toInt()
 
-        println("$amountOfCrates $moveFrom $moveTo")
-
-        solvePart1(amountOfCrates, crateList, moveFrom, moveTo)
+        solvePart2(amountOfCrates, crateList, moveFrom, moveTo)
     }
 }
 
@@ -42,7 +39,7 @@ private fun solvePart1(
     for (j in 1..amountOfCrates) {
         val crateToMove = crateList[moveFrom - 1].pop()
 
-        println("moving crate $crateToMove from pile $moveFrom to $moveTo")
+        println("moving crate $crateToMove from pile $moveFrom to $moveTo\n")
 
         crateList[moveTo - 1].push(crateToMove)
     }
@@ -59,7 +56,7 @@ private fun solvePart2(
         cratesToMove.push(crateList[moveFrom - 1].pop())
     }
 
-    println("moving crates $cratesToMove from pile $moveFrom to $moveTo")
+    println("moving crates $cratesToMove from pile $moveFrom to $moveTo\n")
 
     for (k in 1..cratesToMove.size) {
         crateList[moveTo - 1].push(cratesToMove.pop())
